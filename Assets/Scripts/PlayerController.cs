@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -6,7 +7,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody playerRigidbody;
     private float xInput;
     private float zInput;
-
+    private bool isGrounded;
+    
     [SerializeField] private float jumpForce = 110f;
     [SerializeField] private float rotationForce;
 
@@ -20,28 +22,30 @@ public class PlayerController : MonoBehaviour
         Cursor.visible = false;
     }
 
-    void Update()
+    private void Update()
     {
         ProcessInputs();
-        Move();
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, 0.5f);
     }
 
+    private void FixedUpdate()
+    {
+        Move();
+    }
 
     private void ProcessInputs()
     {
         xInput = Input.GetAxisRaw("Horizontal");
         zInput = Input.GetAxisRaw("Vertical");
-    }
-
-    private void Move()
-    {
-        bool isGrounded = Physics.Raycast(transform.position, Vector3.down, 0.5f);
-
+        
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             playerRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
-
+    }
+    
+    private void Move()
+    {
         Vector3 relativeMovementDirection = new Vector3(xInput, 0, zInput);
         Vector3 movementDirection = gameCamera.transform.TransformDirection(relativeMovementDirection);
         movementDirection.y = 0;
