@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    private Camera gameCamera;
     private Rigidbody playerRigidbody;
     private float xInput;
     private float zInput;
@@ -11,6 +12,8 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
+        gameCamera = FindAnyObjectByType<Camera>();
+
         playerRigidbody = GetComponent<Rigidbody>();
         playerRigidbody.maxAngularVelocity = 40;
 
@@ -26,8 +29,8 @@ public class PlayerController : MonoBehaviour
 
     private void ProcessInputs()
     {
-        xInput = Input.GetAxis("Horizontal");
-        zInput = Input.GetAxis("Vertical");
+        xInput = Input.GetAxisRaw("Horizontal");
+        zInput = Input.GetAxisRaw("Vertical");
     }
 
     private void Move()
@@ -39,10 +42,11 @@ public class PlayerController : MonoBehaviour
             playerRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
 
-        playerRigidbody.AddTorque(
-            zInput * rotationForce,
-            0, 
-            -xInput * rotationForce
-        );
+        Vector3 relativeMovementDirection = new Vector3(xInput, 0, zInput);
+        Vector3 movementDirection = gameCamera.transform.TransformDirection(relativeMovementDirection);
+        movementDirection.y = 0;
+        movementDirection.Normalize();
+        Vector3 rotationVector = new Vector3(movementDirection.z, 0, -movementDirection.x);
+        playerRigidbody.AddTorque(rotationVector * rotationForce);
     }
 }
