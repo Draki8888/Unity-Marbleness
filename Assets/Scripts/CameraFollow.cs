@@ -1,25 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public GameObject target;
-    public float xOffset, yOffset, zOffset;
+    [SerializeField] private GameObject target;
+    [SerializeField] private float offsetHeight;
+    [SerializeField] private float distance;
 
-    public float speedH = 2f;
-    public float SpeedV = 2f;
+    [SerializeField] private float cameraRotationSpeed = 90f;
 
-    private float yaw = 0f;
-    private float pitch = 0f;
+    private float currentRotation;
 
-    void Update() {
-       // transform.position = target.transform.position + new Vector3(xOffset, yOffset, zOffset);
-       // transform.LookAt(target.transform.position);
+    private Vector3 baseOffsetVector;
+    
+    private void Awake()
+    {
+        baseOffsetVector = new Vector3(0, offsetHeight, -distance);
+    }
 
-        //yaw += speedH * Input.GetAxis("Mouse X");
-        //pitch -= SpeedV * Input.GetAxis("Mouse Y");
+    private void Update() {
+        currentRotation += cameraRotationSpeed * Input.GetAxisRaw("Mouse X") * Time.deltaTime;
+        
+        Vector3 targetPosition = target.transform.position;
 
-        //transform.eulerAngles = new Vector3(pitch, yaw, 0f);
+        Vector3 rotatedOffset = Quaternion.AngleAxis(currentRotation, Vector3.up) * baseOffsetVector;
+        transform.position = targetPosition + rotatedOffset;
+
+        transform.LookAt(targetPosition);
     }
 }

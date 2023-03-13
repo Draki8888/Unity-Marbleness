@@ -1,34 +1,20 @@
-using Cinemachine;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public CinemachineFreeLook camera;
-    
-    private Rigidbody rigidbody;
+    private Rigidbody playerRigidbody;
     private float xInput;
     private float zInput;
 
-    // Jumping variables
     [SerializeField] private float jumpForce = 110f;
-
-    [SerializeField] private Transform cam; // Reference to the camera transform
     [SerializeField] private float rotationForce;
 
-    // Start is called before the first frame update
     void Awake()
     {
-        rigidbody = GetComponent<Rigidbody>();
-        rigidbody.maxAngularVelocity = 40;
-
-        cam = Camera.main.transform; // Get the main camera transform
+        playerRigidbody = GetComponent<Rigidbody>();
+        playerRigidbody.maxAngularVelocity = 40;
 
         Cursor.visible = false;
-    }
-
-    private void Start()
-    {
-        camera.m_XAxis.m_MaxSpeed = 1500;
     }
 
     void Update()
@@ -50,10 +36,10 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
-            rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            playerRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
 
-        rigidbody.AddTorque(
+        playerRigidbody.AddTorque(
             zInput * rotationForce,
             0, 
             -xInput * rotationForce

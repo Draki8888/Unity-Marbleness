@@ -3,8 +3,6 @@ using UnityEngine;
 public class CollisionHandler : MonoBehaviour {
     public float minForce = 0f;
     public float maxForce = 20f;
-    private float jumpForce = 28f;
-
 
     private void OnCollisionEnter(Collision collision) {
         float collisionForce = collision.impulse.magnitude / Time.fixedDeltaTime;
