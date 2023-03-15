@@ -18,8 +18,13 @@ public class CameraFollow : MonoBehaviour
         baseOffsetVector = new Vector3(0, offsetHeight, -distance); 
     }
 
-    private void Update() {
-        
+    private void Update()
+    {
+        ControlCamera();
+    }
+
+    private void ControlCamera()
+    {
         currentRotation += cameraRotationSpeed * 2f * Input.GetAxisRaw("Mouse X") * Time.deltaTime;
 
         Vector3 targetPosition = target.transform.position;
