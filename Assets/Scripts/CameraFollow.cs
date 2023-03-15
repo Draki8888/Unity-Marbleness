@@ -7,11 +7,15 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] private float offsetHeight;
     [SerializeField] private float distance;
 
-    [SerializeField] private float cameraRotationSpeed = 90f;
+    public float cameraRotationSpeed = 180f;
 
     private float currentRotation;
 
     private Vector3 baseOffsetVector;
+    [SerializeField] bool canRotate;
+
+    public GameObject settingsMenu;
+    private bool canOpenSettings = true;
     
     private void Awake()
     {
@@ -19,13 +23,28 @@ public class CameraFollow : MonoBehaviour
     }
 
     private void Update() {
-        currentRotation += cameraRotationSpeed * Input.GetAxisRaw("Mouse X") * Time.deltaTime;
         
-        Vector3 targetPosition = target.transform.position;
+        if(canRotate)
+            currentRotation += cameraRotationSpeed * 2f * Input.GetAxisRaw("Mouse X") * Time.deltaTime;
 
+        Vector3 targetPosition = target.transform.position;
         Vector3 rotatedOffset = Quaternion.AngleAxis(currentRotation, Vector3.up) * baseOffsetVector;
         transform.position = targetPosition + rotatedOffset;
-
         transform.LookAt(targetPosition);
+
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            canOpenSettings = !canOpenSettings;
+            if(canOpenSettings)
+            {
+                settingsMenu.SetActive(true);
+                Time.timeScale = 0;
+            }
+            else
+            {
+                settingsMenu.SetActive(false);
+                Time.timeScale = 1;
+            }
+        }
     }
 }
