@@ -15,7 +15,7 @@ public class CameraFollow : MonoBehaviour
     
     private void Awake()
     {
-        baseOffsetVector = new Vector3(0, offsetHeight, -distance);
+        baseOffsetVector = new Vector3(0, offsetHeight, -distance); 
     }
 
     private void Update() {
