@@ -8,6 +8,7 @@ public class SettingsMenu : MonoBehaviour
 {
     [SerializeField] Slider sensitivitySlider;
     [SerializeField] TextMeshProUGUI sliderText;
+    
     public CameraFollow cameraFollow;
     void Start()
     {
@@ -15,11 +16,5 @@ public class SettingsMenu : MonoBehaviour
             sliderText.text = v.ToString();
             cameraFollow.cameraRotationSpeed = v;
         });
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
