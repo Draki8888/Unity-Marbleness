@@ -7,7 +7,7 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] private float offsetHeight;
     [SerializeField] private float distance;
 
-    public float cameraRotationSpeed = 180f;
+    public float cameraRotationSpeed;
 
     private float currentRotation;
 
@@ -16,6 +16,12 @@ public class CameraFollow : MonoBehaviour
     private void Awake()
     {
         baseOffsetVector = new Vector3(0, offsetHeight, -distance); 
+    }
+
+    void Start() 
+    {
+        cameraRotationSpeed = PlayerPrefs.GetFloat("SensitivityValue") * 2f;
+        Debug.Log(PlayerPrefs.GetFloat("SensitivityValue"));
     }
 
     private void Update()
