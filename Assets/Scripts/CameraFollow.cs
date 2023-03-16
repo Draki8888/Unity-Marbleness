@@ -7,7 +7,7 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] private float offsetHeight;
     [SerializeField] private float distance;
 
-    [SerializeField] private float cameraRotationSpeed = 90f;
+    public float cameraRotationSpeed = 180f;
 
     private float currentRotation;
 
@@ -15,17 +15,21 @@ public class CameraFollow : MonoBehaviour
     
     private void Awake()
     {
-        baseOffsetVector = new Vector3(0, offsetHeight, -distance);
+        baseOffsetVector = new Vector3(0, offsetHeight, -distance); 
     }
 
-    private void Update() {
-        currentRotation += cameraRotationSpeed * Input.GetAxisRaw("Mouse X") * Time.deltaTime;
-        
-        Vector3 targetPosition = target.transform.position;
+    private void Update()
+    {
+        ControlCamera();
+    }
 
+    private void ControlCamera()
+    {
+        currentRotation += cameraRotationSpeed * 2f * Input.GetAxisRaw("Mouse X") * Time.deltaTime;
+
+        Vector3 targetPosition = target.transform.position;
         Vector3 rotatedOffset = Quaternion.AngleAxis(currentRotation, Vector3.up) * baseOffsetVector;
         transform.position = targetPosition + rotatedOffset;
-
         transform.LookAt(targetPosition);
     }
 }
