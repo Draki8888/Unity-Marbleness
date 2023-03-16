@@ -11,7 +11,7 @@ public class TestingINputSystem : MonoBehaviour
     [SerializeField] float jumpForce = 10f;
     [SerializeField] float moveSpeed = 5f;
 
-
+    //test
 
     private void Awake()
     {
