@@ -7,6 +7,7 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] private float offsetHeight;
     [SerializeField] private float distance;
     [SerializeField] private GameObject cameraa;
+    [SerializeField] private float minn;
 
     public float cameraRotationSpeed = 180f;
     
@@ -34,7 +35,7 @@ public class CameraFollow : MonoBehaviour
     {
         currentRotationHorizontal += cameraRotationSpeed * 2f * Input.GetAxisRaw("Mouse X") * Time.deltaTime;
         currentRotationVertical += cameraRotationSpeed * 2f * Input.GetAxisRaw("Mouse Y") * Time.deltaTime;
-        currentRotationVertical = Mathf.Clamp(currentRotationVertical, 0, 90);
+        currentRotationVertical = Mathf.Clamp(currentRotationVertical, minn, 90);
         transform.position = target.transform.position;
         transform.rotation = Quaternion.Euler(currentRotationVertical, currentRotationHorizontal, 0);
         transform.position -= transform.forward * distance;
