@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_LevelPortalShaderGraph
+  m_Name: Shader Graphs_LevelPortalShaderGraph 1
   m_Shader: {fileID: -6465566751694194690, guid: b381e127de42e354ca482c966958c725, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -60,9 +60,10 @@ Material:
     - _CastShadows: 0
     - _Cull: 2
     - _DistortionScale: 15
-    - _DistortionSpeed: 0.2
+    - _DistortionSpeed: 2
     - _DistortionStrength: 0.03
     - _DstBlend: 10
+    - _InnerAlphaFade: 0.3
     - _MaxEmission: 0
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -74,6 +75,7 @@ Material:
     - _ZWrite: 0
     - _ZWriteControl: 0
     m_Colors:
-    - _Color1: {r: 0.5411765, g: 0.007843138, b: 0.5843138, a: 1}
-    - _Color2: {r: 1, g: 0.4588235, b: 0, a: 1}
+    - _AlphaFadeEdge: {r: 0.5, g: 0.5, b: 0, a: 0}
+    - _Color1: {r: 0.07778571, g: 0.32857418, b: 0.7169812, a: 1}
+    - _Color2: {r: 0.54509807, g: 0.09033466, b: 1, a: 1}
   m_BuildTextureStacks: []
